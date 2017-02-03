@@ -1,0 +1,22 @@
+.youtube-sync__container {
+  position: relative;
+}
+
+.youtube-sync__player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+}
+
+.youtube-sync__player--active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.youtube-sync__player__links {
+  width: 100%;
+  height: 100%;
+}
