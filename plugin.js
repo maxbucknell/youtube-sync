@@ -1,5 +1,9 @@
 /**
+ * View multiple camera angles of a single event.
  *
+ *
+ *
+ * @param object config
  * @example
  *   $('.videos').youtubeSync({
  *     options: {
@@ -60,8 +64,7 @@ jQuery.fn.youtubeSync = (function () {
       var links = camera.links;
 
       Object.keys(links).forEach(function (destinationName) {
-        var destinationId = getIdFromCameraName(destinationName);
-        var url = '#' + destinationId;
+        var url = '#' + destinationName;
         var link = links[destinationName];
 
         var $link = $('<a />')
@@ -89,7 +92,7 @@ jQuery.fn.youtubeSync = (function () {
   function makeNewPlayerConstructor ($container, options) {
     return function makeNewPlayer (cameraName, videoId, isDefault) {
       var $element = makeElement(cameraName);
-      var id = element.data('iframeId');
+      var id = $element.data('iframeId');
 
       $container.append($element);
 
@@ -145,7 +148,7 @@ jQuery.fn.youtubeSync = (function () {
 
   function swapToCamera (cameraName) {
     var destinationId = getIdFromCameraName(cameraName);
-    var $new = $('#' + destinationId);
+    var $new = $('[data-iframe-id=' + destinationId);
     var newPlayer = $new.data('youtubePlayer');
 
     var $old = $('.youtube-sync__player--active');
@@ -153,7 +156,7 @@ jQuery.fn.youtubeSync = (function () {
       $old.removeClass('youtube-sync__player--active');
       var oldPlayer = $old.data('youtubePlayer')
       oldPlayer.pauseVideo();
-      var time = activePlayer.getCurrentTime();
+      var time = oldPlayer.getCurrentTime();
       newPlayer.seekTo(time);
     }
 
